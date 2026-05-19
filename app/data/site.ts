@@ -1,6 +1,6 @@
 export const IMG = {
   logo: "https://static.wixstatic.com/media/8dc47b_f12701864c13414e8cb6d35e9e5ca034~mv2.png/v1/fill/w_836,h_478,al_c,q_90,enc_avif,quality_auto/Trans%20Logo.png",
-  heroVideo: "/Hero.mp4",
+  heroVideo: "/hero.mp4",
   heroRanch:
     "https://static.wixstatic.com/media/8dc47b_a7b36ec630d4407181472eef839ca7f5~mv2.png/v1/fill/w_1060,h_1060,q_90,enc_avif,quality_auto/8dc47b_a7b36ec630d4407181472eef839ca7f5~mv2.png",
   project1:
