@@ -12,13 +12,15 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
-import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import VerifiedRoundedIcon from "@mui/icons-material/VerifiedRounded";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
+
+const HCAPTCHA_SITE_KEY =
+  process.env.NEXT_PUBLIC_HCAPTCHA_SITE_KEY ??
+  "10000000-ffff-ffff-ffff-000000000001";
 
 const ACCENT = "#1f6bff";
 const TEXT_DARK = "#0F1A2C";
 const BORDER = "rgba(15,26,44,0.14)";
-const SOFT_BG = "#F4F5F8";
 
 type Tab = "form" | "schedule";
 
@@ -29,9 +31,11 @@ export default function HeroForm() {
   const [first, setFirst] = React.useState("");
   const [last, setLast] = React.useState("");
   const [phone, setPhone] = React.useState("");
+  const [captchaToken, setCaptchaToken] = React.useState<string | null>(null);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (!captchaToken) return;
     const params = new URLSearchParams();
     if (first) params.set("firstName", first);
     if (last) params.set("lastName", last);
@@ -125,7 +129,20 @@ export default function HeroForm() {
         />
       </Stack>
 
-      <TrustChip />
+      <Box
+        sx={{
+          mt: 2.5,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <HCaptcha
+          sitekey={HCAPTCHA_SITE_KEY}
+          onVerify={(token) => setCaptchaToken(token)}
+          onExpire={() => setCaptchaToken(null)}
+          onError={() => setCaptchaToken(null)}
+        />
+      </Box>
 
       <Stack direction="row" spacing={1} sx={{ mt: 2.5, alignItems: "flex-start" }}>
         <Checkbox
@@ -167,7 +184,7 @@ export default function HeroForm() {
 
       <Button
         type="submit"
-        disabled={!consent}
+        disabled={!consent || !captchaToken}
         endIcon={<ArrowForwardRoundedIcon />}
         sx={{
           mt: 2.5,
@@ -327,49 +344,3 @@ function NameField({
   );
 }
 
-function TrustChip() {
-  return (
-    <Box
-      sx={{
-        mt: 2.5,
-        bgcolor: SOFT_BG,
-        border: `1px solid ${BORDER}`,
-        borderRadius: 2,
-        px: 2,
-        py: 1.5,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: 2,
-      }}
-    >
-      <Stack direction="row" spacing={1.25} sx={{ alignItems: "center" }}>
-        <Box
-          sx={{
-            width: 28,
-            height: 28,
-            borderRadius: "50%",
-            display: "grid",
-            placeItems: "center",
-            bgcolor: "#1f9d55",
-            color: "#fff",
-          }}
-        >
-          <CheckCircleRoundedIcon sx={{ fontSize: 22 }} />
-        </Box>
-        <Typography sx={{ fontWeight: 600, color: TEXT_DARK }}>
-          Verified Utah Roofer
-        </Typography>
-      </Stack>
-      <Stack direction="row" spacing={1} sx={{ color: "rgba(15,26,44,0.55)", alignItems: "center" }}>
-        <VerifiedRoundedIcon sx={{ color: "#C8923D", fontSize: 22 }} />
-        <Stack sx={{ lineHeight: 1 }}>
-          <Typography sx={{ fontSize: "0.7rem", fontWeight: 700, color: TEXT_DARK }}>
-            Licensed
-          </Typography>
-          <Typography sx={{ fontSize: "0.65rem" }}>& Insured</Typography>
-        </Stack>
-      </Stack>
-    </Box>
-  );
-}
