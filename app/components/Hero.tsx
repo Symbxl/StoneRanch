@@ -105,15 +105,17 @@ export default function Hero() {
             <Typography variant="h1" sx={{ color: "#fff", mb: 3 }}>
               Utah&rsquo;s Choice for Reliable Roofs.
             </Typography>
-            <Stack
+            <Box
               component="a"
               href="https://share.google/LWVastmYRnHJ4rOLH"
               target="_blank"
               rel="noopener noreferrer"
-              direction="row"
-              alignItems="center"
-              spacing={1.25}
+              aria-label="Read our 130+ Google reviews"
               sx={{
+                display: "inline-flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: 1.25,
                 mb: 4,
                 textDecoration: "none",
                 color: "rgba(255,255,255,0.92)",
@@ -129,7 +131,6 @@ export default function Hero() {
                   borderColor: "rgba(255,255,255,0.32)",
                 },
               }}
-              aria-label="Read our 130+ Google reviews"
             >
               <Stack direction="row" spacing={0.25} aria-hidden>
                 {[0, 1, 2, 3, 4].map((i) => (
@@ -148,7 +149,7 @@ export default function Hero() {
               >
                 130+ Google Reviews
               </Typography>
-            </Stack>
+            </Box>
 
             <Stack direction={{ xs: "column", sm: "row" }} spacing={2} sx={{ mb: 5 }}>
               <Button

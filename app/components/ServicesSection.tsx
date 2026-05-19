@@ -370,9 +370,12 @@ export default function ServicesSection() {
           <Stack
             direction={{ xs: "column", md: "row" }}
             spacing={{ xs: 3, md: 4 }}
-            alignItems={{ xs: "flex-start", md: "center" }}
-            justifyContent="space-between"
-            sx={{ position: "relative", zIndex: 1 }}
+            sx={{
+              alignItems: { xs: "flex-start", md: "center" },
+              justifyContent: "space-between",
+              position: "relative",
+              zIndex: 1,
+            }}
           >
             <Box sx={{ flex: 1 }}>
               <Typography
