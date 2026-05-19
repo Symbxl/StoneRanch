@@ -1,0 +1,15 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "stoneranch-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 3000,
+      "cwd": "/Users/symbol/Desktop/stoneranchroof",
+      "env": {
+        "npm_config_cache": "/tmp/npm-cache-stoneranch"
+      }
+    }
+  ]
+}
